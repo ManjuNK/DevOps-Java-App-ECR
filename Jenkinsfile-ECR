@@ -138,8 +138,8 @@ pipeline{
                       sh """
                           
                           terraform init 
-                          terraform plan -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.Region}' --var-file=./config/terraform.tfvars
-                          terraform apply -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.Region}' --var-file=./config/terraform.tfvars --auto-approve
+                          terraform plan -var 'access_key=$accessKeyVariable' -var 'secret_key=$secretKeyVariable' -var 'region=${params.Region}' --var-file=./config/terraform.tfvars
+                          terraform apply -var 'access_key=$accessKeyVariable' -var 'secret_key=$secretKeyVariable' -var 'region=${params.Region}' --var-file=./config/terraform.tfvars --auto-approve
                       """
                   }
                 }
@@ -152,8 +152,8 @@ pipeline{
             script{
 
                 sh """
-                aws configure set aws_access_key_id "$ACCESS_KEY"
-                aws configure set aws_secret_access_key "$SECRET_KEY"
+                aws configure set aws_access_key_id "$accessKeyVariable"
+                aws configure set aws_secret_access_key "$secretKeyVariable"
                 aws configure set region "${params.Region}"
                 aws eks --region ${params.Region} update-kubeconfig --name ${params.cluster}
                 """
