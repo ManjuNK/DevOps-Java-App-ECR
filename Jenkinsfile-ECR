@@ -16,8 +16,8 @@ pipeline{
 
         //ACCESS_KEY = credentials('AWS_ACCESS_KEY_ID')
         //SECRET_KEY = credentials('AWS_SECRET_KEY_ID')
-        AWS_ACCESS_KEY_ID     = credentials('aws_access_key_id')
-        AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
+        //AWS_ACCESS_KEY_ID     = credentials('aws_access_key_id')
+        //AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
         //ACCESS_KEY = ''
         //SECRET_KEY = '/kVtowzi8svP9BIfLVto'
     }
@@ -31,6 +31,17 @@ pipeline{
                 branch: "main",
                 url: "https://github.com/ManjuNK/DevOps-Java-App.git"
             )
+            }
+        }
+        stage('AWS Credentails check') {
+            steps {
+                withCredentials([[ 
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-account-id',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
+                    #
+                    }
             }
         }
     //      stage('Unit Test maven'){
