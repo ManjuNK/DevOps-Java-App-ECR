@@ -40,7 +40,7 @@ pipeline{
                     credentialsId: 'aws-account-id',
                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretKeyVariable: 'AWS_SECRET_KEY_ID']]){
-                    //
+                    sh 'aws s3 ls'
                     }
             }
         }
